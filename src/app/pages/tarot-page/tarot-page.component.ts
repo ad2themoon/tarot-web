@@ -27,22 +27,15 @@ export class TarotPageComponent {
   stats: any; 
   visitCount = 0;
   readingCount = 0;
+  dailyCard: TarotCard | null = null;
+  dailyMessage = '';
+  todayKey = '';
 
   constructor(private tarotService: TarotService , private firebaseLogService: FirebaseLogService) {
     this.shuffleDeck();
     
   }
 
-  // loadStats(): void {
-
-  //   this.http.get<any>(
-  //     'https://tarot-api-i6c0.onrender.com/api/stats'
-  //   ).subscribe(res => {
-  //     this.stats = res;
-  //   });
-  
-  // }
-  
   ngOnInit(): void {
 
     this.firebaseLogService.trackVisit();
@@ -58,6 +51,8 @@ export class TarotPageComponent {
       .subscribe(res => {
         this.readingCount = res;
       });
+
+      this.loadDailyTarot();
   
   }
 
@@ -150,4 +145,63 @@ export class TarotPageComponent {
       this.predict();
     }
   }
+
+  loadDailyTarot(): void {
+    const today = new Date().toISOString().slice(0, 10);
+    this.todayKey = today;
+  
+    const saved = localStorage.getItem(`daily-tarot-${today}`);
+  
+    if (saved) {
+      const data = JSON.parse(saved);
+      this.dailyCard = data.card;
+      this.dailyMessage = data.message;
+      return;
+    }
+  
+    const randomIndex = Math.floor(Math.random() * this.deck.length);
+    const card = this.deck[randomIndex];
+  
+    this.dailyCard = card;
+    this.dailyMessage = 'กำลังเปิดพลังงานประจำวัน...';
+  
+    this.tarotService.daily({
+      cardName: card.name,
+      keyword: card.keyword,
+      element: card.element,
+    }).subscribe({
+      next: res => {
+        this.dailyMessage = res.result;
+  
+        localStorage.setItem(
+          `daily-tarot-${today}`,
+          JSON.stringify({
+            card,
+            message: res.result,
+            date: today,
+          })
+        );
+      },
+      error: err => {
+        console.error(err);
+  
+        this.dailyMessage =
+          `วันนี้พลังงานของคุณคือ "${card.name}" ไพ่ใบนี้สื่อถึง ${card.keyword} ควรใช้วันนี้อย่างมีสติและไม่รีบร้อนตัดสินใจ`;
+  
+        localStorage.setItem(
+          `daily-tarot-${today}`,
+          JSON.stringify({
+            card,
+            message: this.dailyMessage,
+            date: today,
+          })
+        );
+      },
+    });
+  }
+  
+  // getDailyMessage(card: TarotCard): string {
+  //   return `วันนี้พลังงานของคุณคือ "${card.name}" ไพ่ใบนี้สื่อถึง ${card.keyword} แนะนำให้ใช้วันนี้อย่างมีสติ ฟังความรู้สึกตัวเอง และอย่ารีบตัดสินใจจากอารมณ์ชั่ววูบ`;
+  // }
+
 }

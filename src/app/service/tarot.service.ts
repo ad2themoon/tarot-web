@@ -12,6 +12,15 @@ export interface TarotPredictResponse {
   result: string;
 }
 
+export interface DailyTarotRequest {
+  cardName: string;
+  keyword: string;
+  element: string;
+}
+
+export interface DailyTarotResponse {
+  result: string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -30,5 +39,13 @@ export class TarotService {
       {}
     );
   }
+
+  daily(payload: DailyTarotRequest): Observable<DailyTarotResponse> {
+    return this.http.post<DailyTarotResponse>(
+      'https://tarot-api-i6c0.onrender.com/api/tarot/daily',
+      payload
+    );
+  }
+  
   
 }
