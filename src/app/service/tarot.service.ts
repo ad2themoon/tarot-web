@@ -23,4 +23,12 @@ export class TarotService {
   predict(payload: TarotPredictRequest): Observable<TarotPredictResponse> {
     return this.http.post<TarotPredictResponse>(this.apiUrl, payload);
   }
+
+  countTarot() {
+    return this.http.post(
+      'https://tarot-api-i6c0.onrender.com/api/stats/tarot',
+      {}
+    );
+  }
+  
 }

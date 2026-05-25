@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { TarotService } from '../../service/tarot.service';
 import { TAROT_DECK, TarotCard } from '../../data/tarot-deck';
+import { FirebaseLogService } from '../../services/firebase-log.service';
 
 @Component({
   selector: 'app-tarot-page',
@@ -23,9 +24,41 @@ export class TarotPageComponent {
   loading = false;
   result = '';
   error = '';
+  stats: any; 
+  visitCount = 0;
+  readingCount = 0;
 
-  constructor(private tarotService: TarotService) {
+  constructor(private tarotService: TarotService , private firebaseLogService: FirebaseLogService) {
     this.shuffleDeck();
+    
+  }
+
+  // loadStats(): void {
+
+  //   this.http.get<any>(
+  //     'https://tarot-api-i6c0.onrender.com/api/stats'
+  //   ).subscribe(res => {
+  //     this.stats = res;
+  //   });
+  
+  // }
+  
+  ngOnInit(): void {
+
+    this.firebaseLogService.trackVisit();
+  
+    this.firebaseLogService
+      .getVisitCount()
+      .subscribe(res => {
+        this.visitCount = res;
+      });
+  
+    this.firebaseLogService
+      .getReadingCount()
+      .subscribe(res => {
+        this.readingCount = res;
+      });
+  
   }
 
   shuffleDeck(): void {
@@ -60,7 +93,9 @@ export class TarotPageComponent {
     this.loading = true;
     this.result = '';
     this.error = '';
-
+  
+    this.tarotService.countTarot().subscribe();
+  
     this.tarotService.predict({
       category: this.selectedCategory,
       question: this.question,
@@ -68,7 +103,11 @@ export class TarotPageComponent {
     })
       .pipe(finalize(() => this.loading = false))
       .subscribe({
-        next: res => this.result = res.result,
+        next: res => {
+          this.result = res.result;
+          this.firebaseLogService
+            .trackReading(this.selectedCategory);
+        },
         error: err => {
           console.error(err);
           this.error = 'ทำนายไม่สำเร็จ กรุณาลองใหม่อีกครั้ง';

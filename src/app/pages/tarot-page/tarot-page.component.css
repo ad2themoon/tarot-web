@@ -1052,3 +1052,26 @@ body {
       transform: translateY(-6px);
     }
   }
+
+  .stats-mini {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  
+    margin-top: 18px;
+  }
+  
+  .stats-mini__item {
+    padding: 10px 16px;
+    border-radius: 999px;
+  
+    background: rgba(255,255,255,0.06);
+  
+    border: 1px solid rgba(255,217,128,0.12);
+  
+    color: rgba(255,255,255,0.82);
+  
+    font-size: 13px;
+  
+    backdrop-filter: blur(10px);
+  }
