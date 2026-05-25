@@ -93,15 +93,42 @@ export class TarotService {
     );
   }
 
-  daily(
-    payload: DailyTarotPayload
-  ): Observable<DailyTarotResponse> {
+  daily(payload: DailyTarotRequest): Observable<DailyTarotResponse> {
+
+    const body = {
+      cardName: payload.cardName,
+      keyword: payload.keyword,
+      element: payload.element,
+  
+      meaning:
+        payload.meaning ??
+        `${payload.cardName} สื่อถึง ${payload.keyword}`,
+  
+      upright:
+        payload.upright ??
+        `พลังงานด้านบวกของ ${payload.cardName}`,
+  
+      reversed:
+        payload.reversed ??
+        `ด้านที่ต้องระวังของ ${payload.cardName}`,
+  
+      love:
+        payload.love ??
+        `ความสัมพันธ์เกี่ยวข้องกับ ${payload.keyword}`,
+  
+      career:
+        payload.career ??
+        `ด้านการงานเกี่ยวข้องกับ ${payload.keyword}`,
+  
+      advice:
+        payload.advice ??
+        'ใช้สติและมองสถานการณ์ตามความจริง',
+    };
   
     return this.http.post<DailyTarotResponse>(
       'https://tarot-api-i6c0.onrender.com/api/tarot/daily',
-      payload
+      body
     );
-  
   }
   
   

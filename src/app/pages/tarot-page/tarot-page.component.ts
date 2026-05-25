@@ -147,11 +147,15 @@ export class TarotPageComponent {
   }
 
   loadDailyTarot(): void {
+    console.log('daily clicked');
+  
     const today = new Date().toISOString().slice(0, 10);
     this.todayKey = today;
   
     const randomIndex = Math.floor(Math.random() * this.deck.length);
     const card = this.deck[randomIndex];
+  
+    console.log('daily card', card);
   
     this.dailyCard = card;
     this.dailyMessage = 'กำลังเปิดพลังงานประจำวัน...';
@@ -162,6 +166,7 @@ export class TarotPageComponent {
       element: card.element,
     }).subscribe({
       next: res => {
+        console.log('daily response', res);
         this.dailyMessage = res.result;
   
         this.firebaseLogService
@@ -169,10 +174,8 @@ export class TarotPageComponent {
           .then(() => console.log('daily tracked'));
       },
       error: err => {
-        console.error(err);
-  
-        this.dailyMessage =
-          `วันนี้พลังงานของคุณคือ "${card.name}" ไพ่ใบนี้สื่อถึง ${card.keyword} ควรใช้วันนี้อย่างมีสติและไม่รีบร้อนตัดสินใจ`;
+        console.error('daily error', err);
+        this.dailyMessage = 'ไม่สามารถเปิดไพ่ประจำวันได้';
       },
     });
   }

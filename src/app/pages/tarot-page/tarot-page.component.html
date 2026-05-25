@@ -13,7 +13,10 @@
         <h1>เปิดไพ่ถามใจ</h1>
         
     <section class="daily-tarot-trigger">
-        <button class="daily-tarot-btn" (click)="openDailyTarot()">
+        <button
+                class="daily-tarot-btn"
+                (click)="openDailyTarot()"
+                >
             <div class="daily-tarot-btn__glow"></div>
             <span class="daily-tarot-btn__icon">
                 ✦
@@ -30,7 +33,7 @@
         <div class="daily-story__stars"></div>
     
         <div class="daily-story__top">
-            <p>Daily Tarot</p>
+            <span>Daily Tarot</span>
             <span>{{ todayKey }}</span>
         </div>
     
