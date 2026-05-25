@@ -95,14 +95,6 @@
             {{ result }}
         </div>
 
-        <!-- <button
-        type="button"
-        *ngIf="result"
-        class="save-btn"
-        (click)="saveHistory()"
-      >
-        บันทึกประวัติ
-      </button> -->
     </section>
 
     <footer class="footer-mini">
@@ -117,4 +109,22 @@
 
         </div>
     </footer>
+    <div class="loading-overlay" *ngIf="loading">
+        <div class="loading-card">
+          <div class="loading-orb">
+            <span>✦</span>
+          </div>
+      
+          <h3>กำลังเปิดพลังงานของไพ่</h3>
+          <p>โปรดรอสักครู่ ไพ่กำลังเล่าเรื่องราวของคุณ...</p>
+      
+          <div class="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+
+    
 </div>
