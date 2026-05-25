@@ -17,12 +17,12 @@ export interface DailyTarotRequest {
   keyword: string;
   element: string;
 
-  meaning: string;
-  upright: string;
-  reversed: string;
-  love: string;
-  career: string;
-  advice: string;
+  meaning?: string;
+  upright?: string;
+  reversed?: string;
+  love?: string;
+  career?: string;
+  advice?: string;
 }
 
 export interface DailyTarotResponse {
@@ -53,7 +53,27 @@ export interface TarotCard {
 
   selected?: boolean;
 }
+export interface DailyTarotPayload {
 
+  cardName: string;
+
+  keyword: string;
+
+  element: string;
+
+  meaning?: string;
+
+  upright?: string;
+
+  reversed?: string;
+
+  love?: string;
+
+  career?: string;
+
+  advice?: string;
+
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -73,11 +93,15 @@ export class TarotService {
     );
   }
 
-  daily(payload: DailyTarotRequest): Observable<DailyTarotResponse> {
+  daily(
+    payload: DailyTarotPayload
+  ): Observable<DailyTarotResponse> {
+  
     return this.http.post<DailyTarotResponse>(
       'https://tarot-api-i6c0.onrender.com/api/tarot/daily',
       payload
     );
+  
   }
   
   
