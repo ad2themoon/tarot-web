@@ -1,121 +1,101 @@
 <div class="page">
     <section class="hero">
-      <p class="badge">Mystic Tarot AI</p>
-      <h1>เปิดไพ่ถามใจ</h1>
-      <p>เลือกหมวด ตั้งคำถาม แล้วเลือกไพ่ 3 ใบ</p>
+        <p class="badge">Mystic Tarot AI</p>
+        <h1>เปิดไพ่ถามใจ</h1>
+        <p>เลือกหมวด ตั้งคำถาม แล้วเลือกไพ่ 3 ใบ</p>
     </section>
-  
+
     <section class="panel">
-      <h2>เลือกหมวด</h2>
-  
-      <div class="category-grid">
-        <button
-          type="button"
-          *ngFor="let category of categories"
-          [class.active]="selectedCategory === category"
-          (click)="selectedCategory = category"
-        >
-          {{ category }}
-        </button>
-      </div>
+        <h2>เลือกหมวด</h2>
+
+        <div class="category-grid">
+            <button type="button" *ngFor="let category of categories" [class.active]="selectedCategory === category"
+                (click)="selectedCategory = category">
+                {{ category }}
+            </button>
+        </div>
     </section>
-  
+
     <section class="panel">
-      <h2>คำถาม</h2>
-  
-      <input
-        type="text"
-        [(ngModel)]="question"
-        placeholder="เช่น เขาคิดยังไงกับเรา?"
-      />
+        <h2>คำถาม</h2>
+
+        <input type="text" [(ngModel)]="question" placeholder="เช่น เขาคิดยังไงกับเรา?" />
     </section>
-  
+
     <section class="deck-panel">
-      <div class="deck-panel__header">
-        <div>
-          <p class="deck-panel__sub">Mystic Spread</p>
-          <h2>เลือกไพ่ 3 ใบ</h2>
+        <div class="deck-panel__header">
+            <div>
+                <p class="deck-panel__sub">Mystic Spread</p>
+                <h2>เลือกไพ่ 3 ใบ</h2>
+            </div>
+
+            <button type="button" class="shuffle-btn" (click)="shuffleDeck()">
+                ✦ สับไพ่ใหม่
+            </button>
         </div>
-  
-        <button type="button" class="shuffle-btn" (click)="shuffleDeck()">
-          ✦ สับไพ่ใหม่
-        </button>
-      </div>
-  
-      <div class="deck-panel__counter">
-        <div class="counter-bar">
-          <div
-            class="counter-bar__fill"
-            [style.width.%]="(selectedCards.length / 3) * 100"
-          ></div>
+
+        <div class="deck-panel__counter">
+            <div class="counter-bar">
+                <div class="counter-bar__fill" [style.width.%]="(selectedCards.length / 3) * 100"></div>
+            </div>
+
+            <span>{{ selectedCards.length }} / 3</span>
         </div>
-  
-        <span>{{ selectedCards.length }} / 3</span>
-      </div>
-  
-      <section class="draw-zone">
-        <div class="draw-slots">
-          <div class="draw-slot" *ngFor="let slot of [0,1,2]; let i = index">
-            <ng-container *ngIf="selectedCards[i]; else emptySlot">
-              <div class="mini-card" [style.--card-color]="selectedCards[i].color">
-                <div class="mini-card__symbol">{{ selectedCards[i].symbol }}</div>
-                <strong>{{ selectedCards[i].name }}</strong>
-                <span>{{ selectedCards[i].keyword }}</span>
-              </div>
-            </ng-container>
-      
-            <ng-template #emptySlot>
-              <span>ใบที่ {{ i + 1 }}</span>
-            </ng-template>
-          </div>
-        </div>
-      
-        <button
-          type="button"
-          class="deck-stack"
-          [disabled]="selectedCards.length >= 3"
-          (click)="drawRandomCard()"
-        >
-          <div class="stack-card stack-card--3"></div>
-          <div class="stack-card stack-card--2"></div>
-          <div class="stack-card stack-card--1"></div>
-      
-          <div class="deck-stack__label">
-            <strong>จั่วไพ่</strong>
-            <small>{{ 3 - selectedCards.length }} ใบที่เหลือ</small>
-          </div>
-        </button>
-      </section>
+
+        <section class="draw-zone">
+            <div class="draw-slots">
+                <div class="draw-slot" *ngFor="let slot of [0,1,2]; let i = index">
+                    <ng-container *ngIf="selectedCards[i]; else emptySlot">
+                        <div class="mini-card" [style.--card-color]="selectedCards[i].color">
+                            <div class="mini-card__symbol">{{ selectedCards[i].symbol }}</div>
+                            <strong>{{ selectedCards[i].name }}</strong>
+                            <span>{{ selectedCards[i].keyword }}</span>
+                        </div>
+                    </ng-container>
+
+                    <ng-template #emptySlot>
+                        <span>ใบที่ {{ i + 1 }}</span>
+                    </ng-template>
+                </div>
+            </div>
+
+            <button type="button" class="deck-stack" [disabled]="selectedCards.length >= 3" (click)="drawRandomCard()">
+                <div class="stack-card stack-card--3"></div>
+                <div class="stack-card stack-card--2"></div>
+                <div class="stack-card stack-card--1"></div>
+
+                <div class="deck-stack__label">
+                    <strong>จั่วไพ่</strong>
+                    <small>{{ 3 - selectedCards.length }} ใบที่เหลือ</small>
+                </div>
+            </button>
+        </section>
 
     </section>
-  
+
     <section class="result panel" *ngIf="selectedCards.length === 3">
-      <h2>ผลคำทำนาย</h2>
-  
-      <div class="selected-list">
-        <div
-          class="selected-card"
-          *ngFor="let card of selectedCards"
-          [style.--card-color]="card.color"
-        >
-          <div class="selected-card__symbol">
-            {{ card.symbol }}
-          </div>
-  
-          <strong>{{ card.name }}</strong>
-          <span>{{ card.keyword }}</span>
-          <small>{{ card.element }}</small>
+        <h2>ผลคำทำนาย</h2>
+
+        <div class="selected-list">
+            <div class="selected-card" *ngFor="let card of selectedCards" [style.--card-color]="card.color">
+                <div class="selected-card__symbol">
+                    {{ card.symbol }}
+                </div>
+
+                <strong>{{ card.name }}</strong>
+                <span>{{ card.keyword }}</span>
+                <small>{{ card.element }}</small>
+            </div>
         </div>
-      </div>
-  
-      <p *ngIf="loading" class="loading">กำลังทำนาย...</p>
-      <p *ngIf="error" class="error">{{ error }}</p>
-  
-      <div class="ai-result" *ngIf="result">
-        {{ result }}
-      </div>
-  
-      <!-- <button
+
+        <p *ngIf="loading" class="loading">กำลังทำนาย...</p>
+        <p *ngIf="error" class="error">{{ error }}</p>
+
+        <div class="ai-result" *ngIf="result">
+            {{ result }}
+        </div>
+
+        <!-- <button
         type="button"
         *ngIf="result"
         class="save-btn"
@@ -124,4 +104,17 @@
         บันทึกประวัติ
       </button> -->
     </section>
-  </div>
+
+    <footer class="footer-mini">
+        <div class="footer-mini__content">
+            <span>
+                🔮 Mystic Tarot AI
+            </span>
+            <span>
+                version 1.0.0
+            </span>
+            <span>ig : ad.ef</span>
+
+        </div>
+    </footer>
+</div>
