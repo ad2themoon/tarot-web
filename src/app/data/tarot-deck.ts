@@ -1,3 +1,4 @@
+import { RANK_MEANINGS } from './tarot-meanings';
 export interface TarotCard {
     id: number;
     name: string;
@@ -235,19 +236,29 @@ export interface TarotCard {
   
   const MINOR_ARCANA: TarotCard[] = SUITS.flatMap(
     (suit, suitIndex) =>
-      RANKS.map((rank, rankIndex) => ({
-        id: 22 + suitIndex * 14 + rankIndex,
+      RANKS.map((rank, rankIndex) => {
   
-        name: `${rank} of ${suit.name}`,
+        const rankMeaning =
+          RANK_MEANINGS[rank];
   
-        symbol: suit.symbol,
+        return {
   
-        keyword: `${rank} พลังแห่ง ${suit.name}`,
+          id: 22 + suitIndex * 14 + rankIndex,
   
-        element: suit.element,
+          name: `${rank} of ${suit.name}`,
   
-        color: suit.color,
-      }))
+          symbol: suit.symbol,
+  
+          keyword:
+            rankMeaning.keyword,
+  
+          element: suit.element,
+  
+          color: suit.color,
+  
+        };
+  
+      })
   );
   
   export const TAROT_DECK: TarotCard[] = [

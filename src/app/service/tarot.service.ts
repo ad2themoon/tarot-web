@@ -16,11 +16,44 @@ export interface DailyTarotRequest {
   cardName: string;
   keyword: string;
   element: string;
+
+  meaning: string;
+  upright: string;
+  reversed: string;
+  love: string;
+  career: string;
+  advice: string;
 }
 
 export interface DailyTarotResponse {
   result: string;
 }
+
+export interface TarotCard {
+  id: number;
+
+  name: string;
+
+  symbol: string;
+  keyword: string;
+  element: string;
+  color: string;
+
+  meaning: string;
+
+  upright: string;
+
+  reversed: string;
+
+  love: string;
+
+  career: string;
+
+  advice: string;
+
+  selected?: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })

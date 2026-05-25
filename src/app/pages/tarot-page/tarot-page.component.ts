@@ -150,15 +150,6 @@ export class TarotPageComponent {
     const today = new Date().toISOString().slice(0, 10);
     this.todayKey = today;
   
-    // const saved = localStorage.getItem(`daily-tarot-${today}`);
-  
-    // if (saved) {
-    //   const data = JSON.parse(saved);
-    //   this.dailyCard = data.card;
-    //   this.dailyMessage = data.message;
-    //   return;
-    // }
-  
     const randomIndex = Math.floor(Math.random() * this.deck.length);
     const card = this.deck[randomIndex];
   
@@ -172,34 +163,20 @@ export class TarotPageComponent {
     }).subscribe({
       next: res => {
         this.dailyMessage = res.result;
+  
         this.firebaseLogService
-        .trackReading('Daily Tarot', 'DAILY');
-        localStorage.setItem(
-          `daily-tarot-${today}`,
-          JSON.stringify({
-            card,
-            message: res.result,
-            date: today,
-          })
-        );
+          .trackReading('Daily Tarot', 'DAILY')
+          .then(() => console.log('daily tracked'));
       },
       error: err => {
         console.error(err);
   
         this.dailyMessage =
           `วันนี้พลังงานของคุณคือ "${card.name}" ไพ่ใบนี้สื่อถึง ${card.keyword} ควรใช้วันนี้อย่างมีสติและไม่รีบร้อนตัดสินใจ`;
-  
-        localStorage.setItem(
-          `daily-tarot-${today}`,
-          JSON.stringify({
-            card,
-            message: this.dailyMessage,
-            date: today,
-          })
-        );
       },
     });
   }
+
   openDailyTarot(): void {
     this.showDailyTarot = true;
     this.loadDailyTarot();
