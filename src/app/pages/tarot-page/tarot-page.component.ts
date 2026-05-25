@@ -101,8 +101,7 @@ export class TarotPageComponent {
       .subscribe({
         next: res => {
           this.result = res.result;
-          this.firebaseLogService
-            .trackReading(this.selectedCategory);
+          this.firebaseLogService.trackReading(this.selectedCategory, 'NORMAL');
         },
         error: err => {
           console.error(err);
@@ -173,7 +172,8 @@ export class TarotPageComponent {
     }).subscribe({
       next: res => {
         this.dailyMessage = res.result;
-  
+        this.firebaseLogService
+        .trackReading('Daily Tarot', 'DAILY');
         localStorage.setItem(
           `daily-tarot-${today}`,
           JSON.stringify({

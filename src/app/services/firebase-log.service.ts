@@ -28,16 +28,20 @@ export class FirebaseLogService {
 
   }
 
-  trackReading(category: string) {
-
+  trackReading(
+    category: string,
+    type: 'NORMAL' | 'DAILY' = 'NORMAL'
+  ) {
+  
     return addDoc(
       collection(this.firestore, 'readings'),
       {
         category,
+        type,
         createdAt: serverTimestamp(),
       }
     );
-
+  
   }
 
   getVisitCount(): Observable<number> {
