@@ -1163,3 +1163,287 @@ body {
       margin: auto;
     }
   }
+
+  .daily-tarot-trigger {
+    display: flex;
+    justify-content: center;
+  
+    margin-bottom: 22px;
+  }
+  
+  .daily-tarot-btn {
+    position: relative;
+  
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  
+    padding: 18px 22px;
+  
+    border: 0;
+    border-radius: 999px;
+  
+    cursor: pointer;
+  
+    overflow: hidden;
+  
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 217, 128, 0.16),
+        rgba(255,255,255,0.04)
+      );
+  
+    border: 1px solid rgba(255, 217, 128, 0.18);
+  
+    backdrop-filter: blur(14px);
+  
+    transition:
+      transform .25s ease,
+      box-shadow .25s ease;
+  }
+  
+  .daily-tarot-btn:hover {
+    transform: translateY(-2px);
+  
+    box-shadow:
+      0 18px 40px rgba(0,0,0,0.35),
+      0 0 30px rgba(255,217,128,0.12);
+  }
+  
+  .daily-tarot-btn__glow {
+    position: absolute;
+    inset: 0;
+  
+    background:
+      radial-gradient(
+        circle at center,
+        rgba(255,217,128,0.22),
+        transparent 55%
+      );
+  
+    opacity: .8;
+  }
+  
+  .daily-tarot-btn__icon {
+    position: relative;
+    z-index: 2;
+  
+    width: 54px;
+    height: 54px;
+  
+    display: grid;
+    place-items: center;
+  
+    border-radius: 50%;
+  
+    font-size: 22px;
+    color: #ffe39a;
+  
+    background:
+      linear-gradient(
+        145deg,
+        #35124d,
+        #12051d
+      );
+  
+    border: 1px solid rgba(255,217,128,.25);
+  
+    animation: dailyFloat 2.4s ease-in-out infinite;
+  }
+  
+  .daily-tarot-btn__text {
+    position: relative;
+    z-index: 2;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .daily-tarot-btn__text strong {
+    color: #ffe9a8;
+    font-size: 16px;
+  }
+  
+  .daily-tarot-btn__text small {
+    color: rgba(255,255,255,.62);
+  }
+  
+  @keyframes dailyFloat {
+    0%,100% {
+      transform: translateY(0);
+    }
+  
+    50% {
+      transform: translateY(-4px);
+    }
+  }
+  .daily-story {
+    position: relative;
+    min-height: 100svh;
+    margin: 0 -16px 24px;
+    padding: 42px 22px 28px;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+  
+    overflow: hidden;
+    text-align: center;
+  
+    background:
+      radial-gradient(circle at top, var(--card-color), transparent 32%),
+      radial-gradient(circle at bottom, rgba(255, 217, 128, 0.16), transparent 30%),
+      linear-gradient(160deg, #160820, #090411 70%);
+  }
+  
+  .daily-story::before {
+    content: '';
+    position: absolute;
+    inset: 18px;
+    border-radius: 36px;
+    border: 1px solid rgba(255, 217, 128, 0.22);
+    pointer-events: none;
+  }
+  
+  .daily-story__stars {
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1.5px),
+      radial-gradient(circle, rgba(255,217,128,0.8) 1px, transparent 1.5px);
+    background-size: 42px 42px, 76px 76px;
+    animation: storyStars 18s linear infinite;
+  }
+  
+  .daily-story__top,
+  .daily-story__card,
+  .daily-story__message,
+  .daily-story__footer {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .daily-story__top p {
+    margin: 0;
+    color: #ffd980;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  
+  .daily-story__top span {
+    display: block;
+    margin-top: 6px;
+    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+  }
+  
+  .daily-story__card {
+    width: min(280px, 82vw);
+    min-height: 380px;
+    margin: 0 auto;
+    padding: 28px 20px;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    border-radius: 34px;
+    border: 1px solid rgba(255,217,128,0.42);
+  
+    background:
+      radial-gradient(circle at top, var(--card-color), transparent 44%),
+      linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03)),
+      linear-gradient(160deg, #211033, #090411);
+  
+    box-shadow:
+      0 28px 70px rgba(0,0,0,0.5),
+      0 0 42px color-mix(in srgb, var(--card-color), transparent 62%);
+  }
+  
+  .daily-story__symbol {
+    font-size: 86px;
+    line-height: 1;
+    color: var(--card-color);
+    text-shadow: 0 0 34px var(--card-color);
+  }
+  
+  .daily-story__card h2 {
+    margin: 18px 0 8px;
+    color: #ffe9a8;
+    font-size: 30px;
+    line-height: 1.15;
+  }
+  
+  .daily-story__card p {
+    margin: 0;
+    color: rgba(255,255,255,0.78);
+    font-size: 16px;
+  }
+  
+  .daily-story__card small {
+    margin-top: 14px;
+    color: rgba(255,255,255,0.52);
+    font-size: 13px;
+  }
+  
+  .daily-story__message {
+    width: min(520px, 100%);
+    margin: 0 auto;
+    padding: 18px;
+  
+    border-radius: 24px;
+    line-height: 1.8;
+    font-size: 15px;
+    color: rgba(255,255,255,0.84);
+  
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px);
+    white-space: pre-line;
+  }
+  
+  .daily-story__footer {
+    color: rgba(255,255,255,0.46);
+    font-size: 12px;
+    letter-spacing: 0.4px;
+  }
+  
+  @keyframes storyStars {
+    from {
+      background-position: 0 0, 0 0;
+    }
+  
+    to {
+      background-position: 120px 120px, -160px 160px;
+    }
+  }
+  
+  @media (max-width: 420px) {
+    .daily-story {
+      margin-inline: -10px;
+      padding: 36px 18px 24px;
+    }
+  
+    .daily-story__card {
+      min-height: 350px;
+    }
+  
+    .daily-story__symbol {
+      font-size: 76px;
+    }
+  
+    .daily-story__card h2 {
+      font-size: 26px;
+    }
+  
+    .daily-story__message {
+      font-size: 14px;
+      padding: 16px;
+    }
+  }

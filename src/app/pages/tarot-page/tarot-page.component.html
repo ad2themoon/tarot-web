@@ -11,7 +11,49 @@
           </div>
         <p class="badge">Mystic Tarot AI</p>
         <h1>เปิดไพ่ถามใจ</h1>
-        <p>เลือกหมวด ตั้งคำถาม แล้วเลือกไพ่ 3 ใบ</p>
+        
+    <section class="daily-tarot-trigger">
+        <button class="daily-tarot-btn" (click)="openDailyTarot()">
+            <div class="daily-tarot-btn__glow"></div>
+            <span class="daily-tarot-btn__icon">
+                ✦
+            </span>
+            <div class="daily-tarot-btn__text">
+                <strong>Daily Tarot</strong>
+                <small>
+                    เปิดไพ่ประจำวันของคุณ
+                </small>
+            </div>
+        </button>
+    </section>
+    <p>เลือกหมวด ตั้งคำถาม แล้วเลือกไพ่ 3 ใบ</p>
+    </section>
+    
+    <section class="daily-story" *ngIf="showDailyTarot && dailyCard" [style.--card-color]="dailyCard.color">
+        <div class="daily-story__stars"></div>
+    
+        <div class="daily-story__top">
+            <p>Daily Tarot</p>
+            <span>{{ todayKey }}</span>
+        </div>
+    
+        <div class="daily-story__card">
+            <div class="daily-story__symbol">
+                {{ dailyCard.symbol }}
+            </div>
+    
+            <h2>{{ dailyCard.name }}</h2>
+            <p>{{ dailyCard.keyword }}</p>
+            <small>{{ dailyCard.element }}</small>
+        </div>
+    
+        <div class="daily-story__message">
+            {{ dailyMessage }}
+        </div>
+    
+        <div class="daily-story__footer">
+            🔮 Mystic Tarot AI · @ad2themoon
+        </div>
     </section>
 
     <section class="panel">
