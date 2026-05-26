@@ -1205,8 +1205,8 @@ body {
   }
 
   .ig-story-card {
-    /* position: fixed;
-    left: -99999px; */
+    position: fixed;
+    left: -99999px;
     top: 0;
   
     width: 390px;
