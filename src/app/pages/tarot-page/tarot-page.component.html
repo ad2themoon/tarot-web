@@ -134,7 +134,7 @@
             {{ result }}
         </div>
 
-        <button type="button" class="share-ig-btn mt-3" *ngIf="result" (click)="shareToInstagram()">
+        <button type="button" class="share-ig-btn" *ngIf="result" (click)="shareToInstagram()">
             📸 แชร์ลง IG Story
         </button>
     </section>
@@ -148,26 +148,35 @@
         </div>
 
         <div class="ig-story-card__title">
-            <p>My Tarot Reading</p>
+            <p>MY TAROT READING</p>
             <h2>{{ selectedCategory }}</h2>
         </div>
 
         <div class="ig-story-card__cards">
             <div class="ig-story-card__card" *ngFor="let card of selectedCards" [style.--card-color]="card.color">
-                <div>{{ card.symbol }}</div>
+                <div class="ig-story-card__symbol">
+                    {{ card.symbol }}
+                </div>
+
                 <strong>{{ card.name }}</strong>
                 <span>{{ card.keyword }}</span>
             </div>
         </div>
 
-        <div class="ig-story-card__result">
-            {{ result }}
+        <div class="ig-story-card__summary">
+            <p>🔮 ภาพรวม</p>
+
+            <div>
+                {{ getShortSummary(result) }}
+            </div>
         </div>
 
         <div class="ig-story-card__footer">
             เปิดไพ่ของคุณได้ที่ Mystic Tarot AI
         </div>
     </section>
+
+
 
     <footer class="footer-mini">
         <div class="footer-mini__content">

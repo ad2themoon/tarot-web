@@ -188,9 +188,11 @@ export class TarotPageComponent {
     this.loadDailyTarot();
   }
   async shareToInstagram(): Promise<void> {
-    if (!this.igStoryCard) {
+    if (!this.igStoryCard?.nativeElement) {
       return;
     }
+  
+    const html2canvas = (await import('html2canvas')).default;
   
     const canvas = await html2canvas(this.igStoryCard.nativeElement, {
       backgroundColor: null,
@@ -209,19 +211,49 @@ export class TarotPageComponent {
         { type: 'image/png' }
       );
   
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          title: 'Mystic Tarot AI',
-          text: 'ผลไพ่ของฉันวันนี้ 🔮',
-          files: [file],
-        });
-      } else {
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'mystic-tarot-story.png';
-        link.click();
-        URL.revokeObjectURL(link.href);
+      const shareData: ShareData = {
+        title: 'Mystic Tarot AI',
+        text: 'ผลไพ่ของฉันวันนี้ 🔮',
+        files: [file],
+      };
+  
+      try {
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share(shareData);
+          return;
+        }
+  
+        this.downloadStoryImage(blob);
+      } catch (error) {
+        console.error(error);
+        this.downloadStoryImage(blob);
       }
     }, 'image/png');
   }
+  
+  private downloadStoryImage(blob: Blob): void {
+    const url = URL.createObjectURL(blob);
+  
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'mystic-tarot-story.png';
+    link.click();
+  
+    URL.revokeObjectURL(url);
+  }
+
+  getShortSummary(text: string): string {
+    if (!text) {
+      return '';
+    }
+    const overviewMatch = text.match(/🔮\s*ภาพรวม([\s\S]*?)(🃏|✨|🌙|$)/);
+    const summary = overviewMatch ? overviewMatch[1] : text;
+  
+    return summary
+      .replace(/\*\*/g, '')
+      .replace(/\n+/g, ' ')
+      .trim()
+      .slice(0, 220);
+  }
+
 }
