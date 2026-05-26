@@ -243,9 +243,8 @@ export class TarotPageComponent {
   }
 
   getShortSummary(text: string): string {
-    if (!text) {
-      return '';
-    }
+    if (!text) return '';
+  
     const overviewMatch = text.match(/🔮\s*ภาพรวม([\s\S]*?)(🃏|✨|🌙|$)/);
     const summary = overviewMatch ? overviewMatch[1] : text;
   
@@ -253,7 +252,7 @@ export class TarotPageComponent {
       .replace(/\*\*/g, '')
       .replace(/\n+/g, ' ')
       .trim()
-      .slice(0, 220);
+      .slice(0, 150);
   }
 
 }

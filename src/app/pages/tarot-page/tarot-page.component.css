@@ -1211,24 +1211,13 @@ body {
   
     width: 390px;
     height: 693px;
-  
-    padding: 28px 24px;
+    padding: 28px 24px 24px;
   
     overflow: hidden;
-  
     color: #fff;
-  
     background:
-      radial-gradient(circle at top, rgba(255, 170, 70, 0.18), transparent 32%),
-      linear-gradient(180deg, #19051f, #090311 72%);
-  }
-  
-  .ig-story-card__header {
-    display: flex;
-    justify-content: space-between;
-  
-    font-size: 14px;
-    color: rgba(255,255,255,0.82);
+      radial-gradient(circle at top, rgba(255, 190, 90, 0.18), transparent 34%),
+      linear-gradient(180deg, #210820, #080210 76%);
   }
   
   .ig-story-card__title {
@@ -1236,97 +1225,84 @@ body {
     text-align: center;
   }
   
-  .ig-story-card__title p {
-    margin: 0;
-  
-    color: #ffcf70;
-  
-    font-size: 15px;
-    letter-spacing: 4px;
-  }
-  
   .ig-story-card__title h2 {
-    margin-top: 16px;
-  
-    font-size: 54px;
-    font-weight: 800;
-  
+    margin: 12px 0 0;
+    font-size: 48px;
+    line-height: 1;
     color: #ffe7a6;
   }
   
   .ig-story-card__cards {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-  
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
     margin-top: 48px;
   }
   
   .ig-story-card__card {
-    width: 108px;
-    height: 182px;
-  
-    padding: 16px 10px;
-  
+    height: 170px;
+    padding: 14px 8px;
     border-radius: 24px;
   
+    display: grid;
+    grid-template-rows: 48px auto 26px;
+    align-items: center;
     text-align: center;
   
     background:
-      radial-gradient(circle at top, var(--card-color), transparent 38%),
-      rgba(255,255,255,0.06);
-  
-    border: 1px solid rgba(255,255,255,0.12);
-  
-    box-shadow:
-      0 0 30px rgba(255,180,70,0.12);
+      radial-gradient(circle at top, var(--card-color), transparent 42%),
+      rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
   }
   
   .ig-story-card__symbol {
-    font-size: 42px;
-    margin-top: 8px;
-  
+    font-size: 36px;
     color: var(--card-color);
   }
   
   .ig-story-card__card strong {
-    display: block;
-  
-    margin-top: 22px;
-  
-    font-size: 15px;
+    font-size: 17px;
+    line-height: 1.18;
+    color: #fff;
   }
   
   .ig-story-card__card span {
-    display: block;
-  
-    margin-top: 10px;
-  
-    font-size: 13px;
-  
-    opacity: 0.72;
+    font-size: 14px;
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 0.68);
   }
   
   .ig-story-card__summary {
-    margin-top: 34px;
-  
-    padding: 22px;
+    margin-top: 42px;
+    padding: 22px 20px;
+    height: 230px;
   
     border-radius: 28px;
-  
     background: rgba(255,255,255,0.06);
-  
     border: 1px solid rgba(255,255,255,0.08);
   
-    line-height: 1.8;
-  
     text-align: center;
+    overflow: hidden;
   }
   
   .ig-story-card__summary p {
-    margin-bottom: 12px;
-  
+    margin: 0 0 14px;
     color: #ffd47c;
+    font-size: 20px;
+    font-weight: 800;
+  }
   
-    font-weight: 700;
+  .ig-story-card__summary div {
+    font-size: 22px;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.92);
+  
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .ig-story-card__footer {
+    bottom: 18px;
   }
