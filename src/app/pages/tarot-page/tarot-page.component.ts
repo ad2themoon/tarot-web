@@ -5,7 +5,8 @@ import { finalize } from 'rxjs';
 import { TarotService } from '../../service/tarot.service';
 import { TAROT_DECK, TarotCard } from '../../data/tarot-deck';
 import { FirebaseLogService } from '../../services/firebase-log.service';
-
+import { ElementRef, ViewChild } from '@angular/core';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-tarot-page',
   standalone: true,
@@ -13,7 +14,9 @@ import { FirebaseLogService } from '../../services/firebase-log.service';
   templateUrl: './tarot-page.component.html',
   styleUrl: './tarot-page.component.css',
 })
+
 export class TarotPageComponent {
+  @ViewChild('igStoryCard') igStoryCard!: ElementRef<HTMLElement>;
   categories = ['การเรียน', 'การงาน', 'การเงิน', 'ความรัก', 'สุขภาพ', 'ดวงทั่วไป'];
 
   selectedCategory = '';
@@ -184,5 +187,41 @@ export class TarotPageComponent {
     this.showDailyTarot = true;
     this.loadDailyTarot();
   }
-
+  async shareToInstagram(): Promise<void> {
+    if (!this.igStoryCard) {
+      return;
+    }
+  
+    const canvas = await html2canvas(this.igStoryCard.nativeElement, {
+      backgroundColor: null,
+      scale: 3,
+      useCORS: true,
+    });
+  
+    canvas.toBlob(async blob => {
+      if (!blob) {
+        return;
+      }
+  
+      const file = new File(
+        [blob],
+        'mystic-tarot-story.png',
+        { type: 'image/png' }
+      );
+  
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          title: 'Mystic Tarot AI',
+          text: 'ผลไพ่ของฉันวันนี้ 🔮',
+          files: [file],
+        });
+      } else {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'mystic-tarot-story.png';
+        link.click();
+        URL.revokeObjectURL(link.href);
+      }
+    }, 'image/png');
+  }
 }

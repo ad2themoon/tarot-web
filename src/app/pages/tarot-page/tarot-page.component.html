@@ -1,64 +1,50 @@
 <div class="page">
     <section class="hero">
         <div class="stats-mini">
-            <div class="stats-mini__item">
-              👁 {{ visitCount }}
-            </div>
-            <div class="stats-mini__item">
-              🔮 {{ readingCount }}
-            </div>
-          
-          </div>
+            <div class="stats-mini__item">👁 {{ visitCount }}</div>
+            <div class="stats-mini__item">🔮 {{ readingCount }}</div>
+        </div>
+
         <p class="badge">Mystic Tarot AI</p>
         <h1>เปิดไพ่ถามใจ</h1>
-        
-    <section class="daily-tarot-trigger">
-        <button
-                class="daily-tarot-btn"
-                (click)="openDailyTarot()"
-                >
-            <div class="daily-tarot-btn__glow"></div>
-            <span class="daily-tarot-btn__icon">
-                ✦
-            </span>
-            <div class="daily-tarot-btn__text">
-                <strong>Daily Tarot</strong>
-                <small>
-                    เปิดไพ่ประจำวันของคุณ
-                </small>
-            </div>
-        </button>
+        <p>เลือกหมวด ตั้งคำถาม แล้วเลือกไพ่ 3 ใบ</p>
+
+        <section class="daily-tarot-trigger">
+            <button type="button" class="daily-tarot-btn" (click)="openDailyTarot()">
+                <div class="daily-tarot-btn__glow"></div>
+                <span class="daily-tarot-btn__icon">✦</span>
+
+                <div class="daily-tarot-btn__text">
+                    <strong>Daily Tarot</strong>
+                    <small>เปิดไพ่ประจำวันของคุณ</small>
+                </div>
+            </button>
+        </section>
     </section>
+
     <section class="daily-story" *ngIf="showDailyTarot && dailyCard" [style.--card-color]="dailyCard.color">
         <div class="daily-story__stars"></div>
-    
+
         <div class="daily-story__top">
             <span>Daily Tarot</span>
             <span>{{ todayKey }}</span>
         </div>
-    
+
         <div class="daily-story__card">
-            <div class="daily-story__symbol">
-                {{ dailyCard.symbol }}
-            </div>
-    
+            <div class="daily-story__symbol">{{ dailyCard.symbol }}</div>
             <h2>{{ dailyCard.name }}</h2>
             <p>{{ dailyCard.keyword }}</p>
             <small>{{ dailyCard.element }}</small>
         </div>
-    
+
         <div class="daily-story__message">
             {{ dailyMessage }}
         </div>
-    
+
         <div class="daily-story__footer">
             🔮 Mystic Tarot AI · by meoweden
         </div>
     </section>
-    <p>เลือกหมวด ตั้งคำถาม แล้วเลือกไพ่ 3 ใบ</p>
-    </section>
-    
-
 
     <section class="panel">
         <h2>เลือกหมวด</h2>
@@ -99,10 +85,13 @@
 
         <section class="draw-zone">
             <div class="draw-slots">
-                <div class="draw-slot" *ngFor="let slot of [0,1,2]; let i = index">
+                <div class="draw-slot" *ngFor="let slot of [0, 1, 2]; let i = index">
                     <ng-container *ngIf="selectedCards[i]; else emptySlot">
                         <div class="mini-card" [style.--card-color]="selectedCards[i].color">
-                            <div class="mini-card__symbol">{{ selectedCards[i].symbol }}</div>
+                            <div class="mini-card__symbol">
+                                {{ selectedCards[i].symbol }}
+                            </div>
+
                             <strong>{{ selectedCards[i].name }}</strong>
                             <span>{{ selectedCards[i].keyword }}</span>
                         </div>
@@ -125,7 +114,6 @@
                 </div>
             </button>
         </section>
-
     </section>
 
     <section class="result panel" *ngIf="selectedCards.length === 3">
@@ -133,53 +121,76 @@
 
         <div class="selected-list">
             <div class="selected-card" *ngFor="let card of selectedCards" [style.--card-color]="card.color">
-                <div class="selected-card__symbol">
-                    {{ card.symbol }}
-                </div>
-
+                <div class="selected-card__symbol">{{ card.symbol }}</div>
                 <strong>{{ card.name }}</strong>
                 <span>{{ card.keyword }}</span>
                 <small>{{ card.element }}</small>
             </div>
         </div>
 
-        <p *ngIf="loading" class="loading">กำลังทำนาย...</p>
         <p *ngIf="error" class="error">{{ error }}</p>
 
         <div class="ai-result" *ngIf="result">
             {{ result }}
         </div>
 
+        <button type="button" class="share-ig-btn mt-3" *ngIf="result" (click)="shareToInstagram()">
+            📸 แชร์ลง IG Story
+        </button>
+    </section>
+
+    <section class="ig-story-card" #igStoryCard *ngIf="result && selectedCards.length === 3">
+        <div class="ig-story-card__bg"></div>
+
+        <div class="ig-story-card__header">
+            <span>🔮 Mystic Tarot AI</span>
+            <small>meoweden</small>
+        </div>
+
+        <div class="ig-story-card__title">
+            <p>My Tarot Reading</p>
+            <h2>{{ selectedCategory }}</h2>
+        </div>
+
+        <div class="ig-story-card__cards">
+            <div class="ig-story-card__card" *ngFor="let card of selectedCards" [style.--card-color]="card.color">
+                <div>{{ card.symbol }}</div>
+                <strong>{{ card.name }}</strong>
+                <span>{{ card.keyword }}</span>
+            </div>
+        </div>
+
+        <div class="ig-story-card__result">
+            {{ result }}
+        </div>
+
+        <div class="ig-story-card__footer">
+            เปิดไพ่ของคุณได้ที่ Mystic Tarot AI
+        </div>
     </section>
 
     <footer class="footer-mini">
         <div class="footer-mini__content">
-            <span>
-                🔮 Mystic Tarot AI
-            </span>
-            <span>
-                version 1.0.0
-            </span>
+            <span>🔮 Mystic Tarot AI</span>
+            <span>version 1.0.0</span>
             <span>ig : ad.ef</span>
-
         </div>
     </footer>
+
     <div class="loading-overlay" *ngIf="loading">
         <div class="loading-card">
-          <div class="loading-orb">
-            <span>✦</span>
-          </div>
-      
-          <h3>กำลังเปิดพลังงานของไพ่</h3>
-          <p>โปรดรอสักครู่ ไพ่กำลังเล่าเรื่องราวของคุณ...</p>
-      
-          <div class="loading-dots">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-      </div>
+            <div class="loading-orb">
+                <span>✦</span>
+            </div>
 
-    
+            <h3>กำลังเปิดพลังงานของไพ่</h3>
+            <p>โปรดรอสักครู่ ไพ่กำลังเล่าเรื่องราวของคุณ...</p>
+
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
 </div>
