@@ -10,6 +10,7 @@ export interface TarotPredictRequest {
 
 export interface TarotPredictResponse {
   result: string;
+  summary?: string;
 }
 
 export interface DailyTarotRequest {
@@ -74,6 +75,11 @@ export interface DailyTarotPayload {
   advice?: string;
 
 }
+// export interface TarotPredictResponse {
+//   result: string;
+//   summary: string;
+//   mood?: string;
+// }
 @Injectable({
   providedIn: 'root',
 })

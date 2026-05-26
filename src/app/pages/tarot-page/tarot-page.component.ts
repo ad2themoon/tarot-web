@@ -16,42 +16,16 @@ import html2canvas from 'html2canvas';
 })
 
 export class TarotPageComponent {
-
-  selectedCategory = 'ความรัก';
-
-result =
-  'ความสัมพันธ์ของคุณกับคนคุยดูเหมือนจะอยู่ในช่วงของการสร้างรากฐานที่มั่นคง มีความรู้สึกถึงความสุข ความสำเร็จ และความก้าวหน้าไปในทิศทางที่ดี';
-
-selectedCards = [
-  {
-    symbol: '♆',
-    name: 'Four of Wands',
-    keyword: 'ความมั่นคง',
-    color: '#ff9f43',
-  },
-  {
-    symbol: '✪',
-    name: 'Three of Pentacles',
-    keyword: 'การเติบโต',
-    color: '#ffe66d',
-  },
-  {
-    symbol: '⚔',
-    name: 'Eight of Swords',
-    keyword: 'การเคลื่อนไหว',
-    color: '#dfe6e9',
-  },
-];
   @ViewChild('igStoryCard') igStoryCard!: ElementRef<HTMLElement>;
   categories = ['การเรียน', 'การงาน', 'การเงิน', 'ความรัก', 'สุขภาพ', 'ดวงทั่วไป'];
-
-  // selectedCategory = '';
+  shareSummary = '';
+  selectedCategory = '';
   question = '';
   deck: TarotCard[] = [];
-  // selectedCards: TarotCard[] = [];
+  selectedCards: TarotCard[] = [];
   Math = Math;
   loading = false;
-  // result = '';
+  result = '';
   error = '';
   stats: any; 
   visitCount = 0;
@@ -131,6 +105,7 @@ selectedCards = [
       .subscribe({
         next: res => {
           this.result = res.result;
+          this.shareSummary = res.summary ?? this.getShortSummary(res.result);
           this.firebaseLogService.trackReading(this.selectedCategory, 'NORMAL');
         },
         error: err => {
