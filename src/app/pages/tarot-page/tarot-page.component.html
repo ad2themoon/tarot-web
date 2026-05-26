@@ -124,7 +124,7 @@
                 <div class="selected-card__symbol">{{ card.symbol }}</div>
                 <strong>{{ card.name }}</strong>
                 <span>{{ card.keyword }}</span>
-                <small>{{ card.element }}</small>
+                <!-- <small>{{ card.element }}</small> -->
             </div>
         </div>
 
@@ -138,8 +138,8 @@
             📸 แชร์ลง IG Story
         </button>
     </section>
-
-    <section class="ig-story-card" #igStoryCard *ngIf="result && selectedCards.length === 3">
+    <!-- #igStoryCard  *ngIf="result && selectedCards.length === 3" -->
+    <section class="ig-story-card" >
         <div class="ig-story-card__bg"></div>
 
         <div class="ig-story-card__header">
