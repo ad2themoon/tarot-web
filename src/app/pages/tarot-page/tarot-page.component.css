@@ -1213,9 +1213,9 @@ body {
     height: 693px;
   
     padding:
-      42px   /* top */
-      24px   /* left-right */
-      42px;  /* bottom */
+      36px
+      24px
+      36px;
   
     overflow: hidden;
   
@@ -1234,15 +1234,43 @@ body {
       );
   }
   
+  .ig-story-card__bg {
+    position: absolute;
+    inset: 0;
+  
+    opacity: 0.28;
+  
+    background-image:
+      radial-gradient(
+        circle,
+        rgba(255,255,255,0.8) 1px,
+        transparent 1.5px
+      ),
+      radial-gradient(
+        circle,
+        rgba(255,210,120,0.8) 1px,
+        transparent 1.5px
+      );
+  
+    background-size:
+      48px 48px,
+      88px 88px;
+  }
+  
+  .ig-story-card > *:not(.ig-story-card__bg) {
+    position: relative;
+    z-index: 2;
+  }
+  
   .ig-story-card__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
   
-    gap: 16px;
+    gap: 14px;
   
     font-size: 13px;
-    color: rgba(255,255,255,0.82);
+    color: rgba(255,255,255,0.84);
   }
   
   .ig-story-card__header small {
@@ -1250,7 +1278,7 @@ body {
   }
   
   .ig-story-card__title {
-    margin-top: 42px;
+    margin-top: 34px;
     text-align: center;
   }
   
@@ -1259,12 +1287,12 @@ body {
   
     color: #ffcf70;
   
-    font-size: 12px;
-    letter-spacing: 3px;
+    font-size: 11px;
+    letter-spacing: 4px;
   }
   
   .ig-story-card__title h2 {
-    margin-top: 14px;
+    margin-top: 12px;
   
     font-size: 40px;
     line-height: 1;
@@ -1278,21 +1306,21 @@ body {
   
     gap: 12px;
   
-    margin-top: 34px;
+    margin-top: 28px;
   }
   
   .ig-story-card__card {
-    height: 150px;
+    height: 145px;
   
-    padding: 12px 8px;
+    padding: 10px 8px;
   
     border-radius: 22px;
   
     display: grid;
     grid-template-rows:
-      40px
+      34px
       auto
-      24px;
+      22px;
   
     align-items: center;
     text-align: center;
@@ -1308,33 +1336,33 @@ body {
     border: 1px solid rgba(255,255,255,0.12);
   
     box-shadow:
-      0 0 24px rgba(255,180,70,0.10);
+      0 0 22px rgba(255,180,70,0.08);
   }
   
   .ig-story-card__symbol {
-    font-size: 30px;
+    font-size: 28px;
   
     color: var(--card-color);
   }
   
   .ig-story-card__card strong {
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.18;
   
     color: #fff;
   }
   
   .ig-story-card__card span {
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1.2;
   
-    color: rgba(255,255,255,0.66);
+    color: rgba(255,255,255,0.64);
   }
   
   .ig-story-card__summary {
-    margin-top: 28px;
+    margin-top: 24px;
   
-    height: 180px;
+    min-height: 150px;
   
     padding: 18px 18px;
   
@@ -1350,17 +1378,17 @@ body {
   }
   
   .ig-story-card__summary p {
-    margin: 0 0 12px;
+    margin: 0 0 10px;
   
     color: #ffd47c;
   
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
   }
   
   .ig-story-card__summary div {
-    font-size: 17px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.55;
   
     color: rgba(255,255,255,0.92);
   
@@ -1377,11 +1405,11 @@ body {
   
     left: 24px;
     right: 24px;
-    bottom: 16px;
+    bottom: 14px;
   
     text-align: center;
   
-    font-size: 11px;
+    font-size: 10px;
   
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.42);
   }
